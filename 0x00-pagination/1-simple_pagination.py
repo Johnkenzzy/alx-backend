@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""Define Server class"""
 import csv
 import math
 from typing import List
