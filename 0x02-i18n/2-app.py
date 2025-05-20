@@ -22,7 +22,7 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
-@babel.locale_selector
+@babel.localeselector
 def get_locale() -> str:
     """Get the set local langauge"""
     return request.accept_languages.best_match(
