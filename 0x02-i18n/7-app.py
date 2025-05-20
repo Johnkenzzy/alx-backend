@@ -101,7 +101,7 @@ def get_locale() -> str:
 @app.route('/')
 def index() -> Union[str, Response]:
     """Index route"""
-    return render_template('6-index.html', current_locale=str(get_locale()))
+    return render_template('7-index.html', current_locale=str(get_locale()))
 
 
 if __name__ == "__main__":
