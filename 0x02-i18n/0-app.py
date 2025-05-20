@@ -4,7 +4,7 @@
 
 from flask import Flask, render_template
 from typing import Union
-from werkzeug import Response
+from werkzeug.wrappers import Response
 
 
 app = Flask(__name__)
