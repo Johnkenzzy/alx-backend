@@ -1,32 +1,29 @@
-import { createClient, print } from 'redis';
+import redis from 'redis';
 
-const client = createClient();
+const client = redis.createClient();
 
-client.on('error', (err) => {
-  console.log('Redis client not connected to the server:', err.toString());
-});
+client.on("error", (err) => console.log("Redis Client Error", err.message));
+client.on("connect", () => console.log("Redis client connected to the server"));
 
-client.on('connect', () => {
-  console.log('Redis client connected to the server');
-});
-
-// Function to set value for a key
+// Set a new value in Redis
 function setNewSchool(schoolName, value) {
-  client.set(schoolName, value, print); // redis.print logs: Reply: OK
+  client.set(schoolName, value, redis.print);
 }
 
-// Function to display value of a key
+// Get and display a value from Redis
 function displaySchoolValue(schoolName) {
   client.get(schoolName, (err, reply) => {
     if (err) {
-      console.error('Error:', err);
-      return;
+      console.error("Error fetching value:", err);
+    } else {
+      console.log(reply);
     }
-    console.log(reply);
   });
 }
 
-// Test the functions
-displaySchoolValue('ALX');
-setNewSchool('ALXSanFrancisco', '100');
-displaySchoolValue('ALXSanFrancisco');
+// Connect to Redis and perform operations
+client.connect().then(() => {
+  displaySchoolValue('ALX');
+  setNewSchool('ALXSanFrancisco', '100');
+  displaySchoolValue('ALXSanFrancisco');
+})
